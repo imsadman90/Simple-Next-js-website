@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
-export default function LoginPage() {
+export const dynamic = "force-dynamic";
+
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
@@ -58,8 +60,8 @@ export default function LoginPage() {
       toast.success("Login successful! Redirecting...");
       const redirect = searchParams.get("redirect") || "/items";
       // Trigger auth change event for navbar
-      window.dispatchEvent(new Event('authChanged'));
-      
+      window.dispatchEvent(new Event("authChanged"));
+
       setTimeout(() => {
         router.push(redirect);
         router.refresh();
@@ -157,3 +159,16 @@ export default function LoginPage() {
   );
 }
 
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
+          <div className="text-xl text-gray-600">Loading...</div>
+        </div>
+      }
+    >
+      <LoginContent />
+    </Suspense>
+  );
+}
