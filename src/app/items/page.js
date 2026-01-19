@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 
-export const dynamic = "force-dynamic";
-
 export default function ItemsPage() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);

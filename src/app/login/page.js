@@ -4,8 +4,6 @@ import { Suspense, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
-export const dynamic = "force-dynamic";
-
 function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();

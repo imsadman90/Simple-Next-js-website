@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export const dynamic = "force-dynamic";
-
 export default function AddItemPage() {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);

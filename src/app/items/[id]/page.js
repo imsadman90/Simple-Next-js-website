@@ -5,8 +5,6 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { toast } from "sonner";
 
-export const dynamic = "force-dynamic";
-
 export default function ItemDetailsPage() {
   const { id } = useParams();
   const [item, setItem] = useState(null);
