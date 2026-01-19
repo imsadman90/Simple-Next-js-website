@@ -1,0 +1,46 @@
+# Git version control
+.git
+.gitignore
+
+# Node modules
+node_modules
+
+# Environment files (Vercel will set env vars in dashboard)
+.env
+.env.local
+.env.*.local
+
+# IDE and editor configs
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build outputs
+.next
+out
+dist
+build
+
+# Testing
+.jest
+coverage
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Express server (no longer needed on Vercel)
+server.js
+
+# Development scripts
+scripts/
+
+# Documentation
+REQUIREMENTS_VERIFICATION.md
