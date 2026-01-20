@@ -7,6 +7,7 @@ import { toast } from "sonner";
 
 export default function Navbar() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -51,6 +52,7 @@ export default function Navbar() {
 
       if (response.ok) {
         setIsAuthenticated(false);
+        setIsMenuOpen(false);
         toast.success("Logged out successfully");
         window.dispatchEvent(new Event("authChanged"));
         router.push("/");
@@ -59,6 +61,10 @@ export default function Navbar() {
     } catch (error) {
       toast.error("Logout failed");
     }
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
   };
 
   return (
@@ -73,9 +79,9 @@ export default function Navbar() {
             TechHub
           </Link>
 
-          {/* Navigation Links - Center */}
-          <div className="flex flex-1 justify-center items-center">
-            <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm lg:text-base justify-center">
+          {/* Desktop Navigation Links - Center (hidden on mobile) */}
+          <div className="hidden lg:flex flex-1 justify-center items-center">
+            <div className="flex items-center gap-2 text-sm justify-center">
               <a
                 href="/#hero"
                 className="hover:text-blue-300 transition whitespace-nowrap"
@@ -145,8 +151,8 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Login/Logout - Right */}
-          <div className="flex items-center gap-4 whitespace-nowrap">
+          {/* Login/Logout - Right (hidden on mobile) */}
+          <div className="hidden lg:flex items-center gap-4 whitespace-nowrap">
             {isAuthenticated ? (
               <button
                 onClick={handleLogout}
@@ -162,6 +168,123 @@ export default function Navbar() {
                 Login
               </Link>
             )}
+          </div>
+
+          {/* Mobile Hamburger Button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="lg:hidden flex flex-col gap-1 focus:outline-none"
+          >
+            <span
+              className={`block w-6 h-0.5 bg-white transition-transform ${
+                isMenuOpen ? "rotate-45 translate-y-2" : ""
+              }`}
+            />
+            <span
+              className={`block w-6 h-0.5 bg-white transition-opacity ${
+                isMenuOpen ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`block w-6 h-0.5 bg-white transition-transform ${
+                isMenuOpen ? "-rotate-45 -translate-y-2" : ""
+              }`}
+            />
+          </button>
+        </div>
+
+        {/* Mobile Menu Dropdown */}
+        <div
+          className={`lg:hidden bg-slate-800 border-t border-slate-700 overflow-y-auto transition-all duration-300 ease-in-out ${
+            isMenuOpen ? "max-h-96 py-4 px-4" : "max-h-0 py-0 px-4"
+          }`}
+        >
+          <div className="space-y-3">
+            <a
+              href="/#hero"
+              onClick={closeMenu}
+              className="block hover:text-blue-300 transition py-2"
+            >
+              Hero
+            </a>
+            <a
+              href="/#categories"
+              onClick={closeMenu}
+              className="block hover:text-blue-300 transition py-2"
+            >
+              Categories
+            </a>
+            <a
+              href="/#why"
+              onClick={closeMenu}
+              className="block hover:text-blue-300 transition py-2"
+            >
+              Why Us
+            </a>
+            <a
+              href="/#promise"
+              onClick={closeMenu}
+              className="block hover:text-blue-300 transition py-2"
+            >
+              Promise
+            </a>
+            <a
+              href="/#testimonials"
+              onClick={closeMenu}
+              className="block hover:text-blue-300 transition py-2"
+            >
+              Testimonials
+            </a>
+            <a
+              href="/#offers"
+              onClick={closeMenu}
+              className="block hover:text-blue-300 transition py-2"
+            >
+              Offers
+            </a>
+            <a
+              href="/#cta"
+              onClick={closeMenu}
+              className="block hover:text-blue-300 transition py-2"
+            >
+              CTA
+            </a>
+            <Link
+              href="/items"
+              onClick={closeMenu}
+              className="block hover:text-blue-300 transition py-2"
+            >
+              Items
+            </Link>
+            {isAuthenticated && (
+              <Link
+                href="/add-item"
+                onClick={closeMenu}
+                className="block hover:text-blue-300 transition py-2"
+              >
+                Add Item
+              </Link>
+            )}
+
+            {/* Mobile Auth Button */}
+            <div className="pt-4 border-t border-slate-700">
+              {isAuthenticated ? (
+                <button
+                  onClick={handleLogout}
+                  className="w-full bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg font-semibold transition text-sm"
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  href="/login"
+                  onClick={closeMenu}
+                  className="block w-full text-center bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-semibold transition text-sm"
+                >
+                  Login
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </div>

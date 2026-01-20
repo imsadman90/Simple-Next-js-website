@@ -14,9 +14,9 @@ export default function ItemsPage() {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/items`,
-      );
+      // Use provided public API base when set, otherwise fall back to same-origin
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
+      const response = await fetch(`${baseUrl}/api/items`);
       if (!response.ok) throw new Error("Failed to fetch items");
       const data = await response.json();
       setItems(data);

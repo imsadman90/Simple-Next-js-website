@@ -219,9 +219,7 @@ Currently using **in-memory mock database** with sample products:
 
 - Laptop Pro
 - Wireless Headphones
-- Mechanical Keyboard
 - USB-C Hub
-- 4K Webcam
 - Portable SSD 1TB
 
 Products are stored in memory and will reset on server restart. For production, integrate a real database like MongoDB or PostgreSQL.
@@ -278,7 +276,7 @@ npm start
 
 ## Future Enhancements
 
-- [ ] Real database integration (MongoDB/PostgreSQL)
+- [ ] Real database integration (MongoDB)
 - [ ] User registration system
 - [ ] Shopping cart persistence
 - [ ] Payment gateway integration

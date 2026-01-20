@@ -23,16 +23,6 @@ let items = [
     stock: 42,
   },
   {
-    id: 3,
-    name: "Mechanical Keyboard",
-    description: "RGB mechanical keyboard with custom switches",
-    price: 149.99,
-    image:
-      "https://images.unsplash.com/photo-1587829191301-efd2b380ce80?w=500&h=500&fit=crop",
-    category: "Peripherals",
-    stock: 28,
-  },
-  {
     id: 4,
     name: "USB-C Hub",
     description: "7-in-1 USB-C hub with HDMI, USB 3.0, and SD card reader",
@@ -49,7 +39,7 @@ let items = [
       "Crystal clear 4K webcam with auto-focus and built-in microphone",
     price: 129.99,
     image:
-      "https://images.unsplash.com/photo-1598594026213-e1cf39ce35e5?w=500&h=500&fit=crop",
+      "https://hp.widen.net/content/qf961bfodw/png/qf961bfodw.png?w=800&h=600&dpi=72&color=ffffff00",
     category: "Video",
     stock: 22,
   },

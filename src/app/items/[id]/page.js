@@ -2,14 +2,17 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function ItemDetailsPage() {
   const { id } = useParams();
+  const router = useRouter();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
+  const [deleting, setDeleting] = useState(false);
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
 
   useEffect(() => {
     if (!id) return;
@@ -18,9 +21,7 @@ export default function ItemDetailsPage() {
 
   const fetchItem = async (itemId) => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/items/${itemId}`,
-      );
+      const response = await fetch(`${baseUrl}/api/items/${itemId}`);
       if (!response.ok) throw new Error("Failed to fetch item");
       const data = await response.json();
       setItem(data);
@@ -38,6 +39,40 @@ export default function ItemDetailsPage() {
       return;
     }
     toast.success(`Added ${quantity} item(s) to cart`);
+  };
+
+  const handleDelete = async () => {
+    if (!id) return;
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this item?",
+    );
+    if (!confirmDelete) return;
+
+    setDeleting(true);
+    try {
+      const response = await fetch(`${baseUrl}/api/items/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({}));
+        if (response.status === 401) {
+          toast.error("Please login to delete items");
+          router.push(`/login?redirect=/items/${id}`);
+          return;
+        }
+        throw new Error(error.error || "Failed to delete item");
+      }
+
+      toast.success("Item deleted");
+      router.push("/items");
+    } catch (error) {
+      console.error("Error deleting item:", error);
+      toast.error(error.message || "Failed to delete item");
+    } finally {
+      setDeleting(false);
+    }
   };
 
   if (loading) {
@@ -160,13 +195,22 @@ export default function ItemDetailsPage() {
               </div>
 
               {/* Add to Cart Button */}
-              <button
-                onClick={handleAddToCart}
-                disabled={item.stock <= 0}
-                className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {item.stock > 0 ? "Add to Cart" : "Out of Stock"}
-              </button>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                <button
+                  onClick={handleAddToCart}
+                  disabled={item.stock <= 0}
+                  className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {item.stock > 0 ? "Add to Cart" : "Out of Stock"}
+                </button>
+                <button
+                  onClick={handleDelete}
+                  disabled={deleting}
+                  className="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {deleting ? "Deleting..." : "Delete Item"}
+                </button>
+              </div>
 
               {/* Additional Info */}
               <div className="mt-8 pt-8 border-t border-gray-200">

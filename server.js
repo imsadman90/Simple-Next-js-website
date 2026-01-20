@@ -40,16 +40,6 @@ let items = [
   },
   {
     id: 3,
-    name: "Mechanical Keyboard",
-    description: "RGB mechanical keyboard with custom switches",
-    price: 149.99,
-    image:
-      "https://images.unsplash.com/photo-1587829191301-efd2b380ce80?w=500&h=500&fit=crop",
-    category: "Peripherals",
-    stock: 28,
-  },
-  {
-    id: 4,
     name: "USB-C Hub",
     description: "7-in-1 USB-C hub with HDMI, USB 3.0, and SD card reader",
     price: 49.99,
@@ -58,19 +48,9 @@ let items = [
     category: "Accessories",
     stock: 60,
   },
+
   {
-    id: 5,
-    name: "4K Webcam",
-    description:
-      "Crystal clear 4K webcam with auto-focus and built-in microphone",
-    price: 129.99,
-    image:
-      "https://images.unsplash.com/photo-1598594026213-e1cf39ce35e5?w=500&h=500&fit=crop",
-    category: "Video",
-    stock: 22,
-  },
-  {
-    id: 6,
+    id: 4,
     name: "Portable SSD 1TB",
     description: "Ultra-fast portable SSD with 1TB storage capacity",
     price: 199.99,
