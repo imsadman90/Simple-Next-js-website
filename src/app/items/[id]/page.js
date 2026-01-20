@@ -100,17 +100,19 @@ export default function ItemDetailsPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Link
-          href="/items"
-          className="text-blue-600 hover:text-blue-700 font-semibold mb-8 inline-block"
-        >
-          ← Back to items
-        </Link>
+        <div className="text-end">
+          <Link
+            href="/items"
+            className="text-blue-600 hover:text-blue-700 font-semibold mb-8 inline-block text-lg"
+          >
+            Back to items
+          </Link>
+        </div>
 
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
             {/* Image */}
-            <div className="flex items-center justify-center bg-gray-100 rounded-lg h-96">
+            <div className="flex items-center justify-center bg-gray-100 rounded-lg w-full h-125">
               <img
                 src={item.image}
                 alt={item.name}
